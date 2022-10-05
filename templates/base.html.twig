@@ -5,25 +5,51 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=chrome">
+
+    {# css / javascript #}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="https://kit.fontawesome.com/8c94095c90.js" crossorigin="anonymous"></script>
+
+
+    {# notre google font #}
+    <link rel="preconnect" href="https://fonts.google.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Acme&display=swap">
+
+    {# Titre #}
     <title>Bucket-List</title>
 
+    {# le favicon #}
+    <link rel="icon" href="{{ asset('img/favicon.png') }}">
+
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+        {# notre css #}
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 
 </head>
-    <header>
-        <h1>{% block title %} Seau de Liste {% endblock %}</h1>
-        <div><img src="F:/Informatik/PHP/Symphony/ressources-tp/logo.svg" alt=""></div>
-    </header>
+     <body>
+        <header>
+            {# l'entête #}
+            <div> {{ include('inc/nav.html.twig') }}</div>
 
-    <body>
-        {% block body %}
-            <h1>Vos envies, nos obligations.</h1>
-            <h6>Attention : aucun rappel ni paramétrage d'alertes disponible.</h6>
-        {% endblock %}
-    </body>
+        </header>
+        <main>
+            <div class="container">
+                {% block body %}
 
-    <footer>
-        <div> {{ include('inc/nav.html.twig') }}</div>
-        <div>©Seau de Liste {{ "now"|date("Y") }}</div>
-    </footer>
+
+                {% endblock %}
+            </div>
+
+        </main>
+        <footer>
+            <div class="container">©Seau de Liste {{ "now"|date("Y") }}</div>
+        </footer>
+
+     </body>
 </html>
