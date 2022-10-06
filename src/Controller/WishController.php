@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class WishController extends AbstractController
 {
     /**
-     * @Route("/public/wish", name="wish_list")
+     * @Route("/wish", name="wish_list")
      */
     public function list():Response{
         return $this->render('wish/list.html.twig');
