@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com/css2?family=Acme&display=swap">
 
     {# Titre #}
-    <title>Bucket-List</title>
+    <title>{% block title %}Bucket-List {% endblock %}</title>
 
     {# le favicon #}
     <link rel="icon" href="{{ asset('img/favicon.png') }}">
@@ -35,7 +35,7 @@
      <body>
         <header>
             {# l'entête #}
-            <div> {{ include('inc/nav.html.twig') }}</div>
+            <div> {% include('inc/nav.html.twig') %}</div>
 
         </header>
         <main>

@@ -9,15 +9,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class WishController extends AbstractController
 {
     /**
-     * @Route("/wish", name="wish_list")
+     * @Route("/public/wish", name="wish_list")
      */
     public function list():Response{
         return $this->render('wish/list.html.twig');
     }
     /**
-     * @Route("/wish", name="wish_details")
+     * @Route("/wish/details/{id}", name="wish_details")
      */
-    public function details():Response{
+    public function details(int $id):Response{
         return $this->render('wish/details.html.twig');
     }
 }
