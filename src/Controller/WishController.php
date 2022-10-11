@@ -65,6 +65,8 @@ class WishController extends AbstractController
             $entityManager->persist($wish);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Moi, Shenron, a entendu votre Souhait !');
+
             return $this->redirectToRoute('main_home');
         }
 
