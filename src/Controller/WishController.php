@@ -4,30 +4,73 @@ namespace App\Controller;
 
 use App\Entity\Wish;
 use App\Form\WishType;
-use http\Env\Request;
+
+use App\Repository\WishRepository;
+use Doctrine\ORM\EntityManagerInterface;
+
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/wish", name="wish_")
+ */
 class WishController extends AbstractController
 {
     /**
-     * @Route("/wish", name="wish_list")
+     * @Route("/", name="list")
      */
-    public function list():Response{
-        return $this->render('wish/list.html.twig');
+    public function list(WishRepository $wishRepository):Response{
+        $wishes = $wishRepository -> findBy(['isPublished'=>true],['dateCreated'=>'DESC']);
+
+        return $this->render('wish/list.html.twig',["wishes"=>$wishes]);
     }
     /**
-     * @Route("/wish/details/{id}", name="wish_details")
+     * @Route("/details/{id}", name="details")
      */
-    public function details(int $id):Response{
+    public function details(int $id, WishRepository $wishRepository):Response{
+        $wish=$wishRepository->find($id);
+
+        if (!$wish){
+            throw $this->createNotFoundException('Error, Data not found');
+        }
+
         return $this->render('wish/details.html.twig');
     }
-    public function create(Request $request):Response{
-        $wish = new Wish();
-        $wishform = $this->createForm(WishType::class, $wish);
-        //Todo: Faire la page Create (pas le mod minecraft)
 
-        return $this->render('');
+    /**
+     * @Route("/create", name="create")
+     */
+    public function create(Request $request, EntityManagerInterface $entityManager):Response{
+        $wish = new Wish();
+
+        $wish->setTitle('');
+        $wish->setDescription('');
+        $wish->setAuthor('');
+        $wish->setIsPublished('');
+        $wish->setDateCreated(new \DateTime());
+
+        $entityManager->persist($wish);
+        $entityManager->flush();
+
+        $wishForm = $this->createForm(WishType::class, $wish);
+
+        $wishForm->handleRequest($request);
+
+        if($wishForm->isSubmitted()&&$wishForm->isValid()){
+
+            $entityManager->persist($wish);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('main_home');
+        }
+
+        return $this->render('wish/create.html.twig', [
+            'wishForm' => $wishForm->createView()
+        ]);
     }
+
 }
