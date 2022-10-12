@@ -34,6 +34,15 @@ class WishType extends AbstractType
                 'html5'=>true,
                 'widget'=>'single_text'
             ])
+            ->add('category', ChoiceType::class, [
+                    'choices'=>[
+                        'Travel & Adventure'=>'Travel & Adventure',
+                        'Sport'=>'Sport',
+                        'Entertainment'=>'Entertainment',
+                        'Human Relations'=>'Human Relations',
+                        'Others'=>'Others',
+                    ]
+                ])
         ;
     }
 

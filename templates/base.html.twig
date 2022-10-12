@@ -39,8 +39,8 @@
 
         </header>
 
-        <section class="flash">
-        {# read and display all flash messages #}
+        <main>
+            {# read and display all flash messages #}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
                     <div class="flash flash-{{ label }}">
@@ -48,8 +48,7 @@
                     </div>
                 {% endfor %}
             {% endfor %}
-        </section>
-        <main>
+
             <div class="container">
                 {% block body %}
 

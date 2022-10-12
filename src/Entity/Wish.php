@@ -42,6 +42,11 @@ class Wish
      */
     private $dateCreated;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Category::class, mappedBy="wish", cascade={"persist", "remove"})
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,6 +108,23 @@ class Wish
     public function setDateCreated(?\DateTimeInterface $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): self
+    {
+        // set the owning side of the relation if necessary
+        if ($category->getWish() !== $this) {
+            $category->setWish($this);
+        }
+
+        $this->category = $category;
 
         return $this;
     }
