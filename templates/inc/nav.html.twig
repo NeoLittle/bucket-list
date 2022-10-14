@@ -22,6 +22,7 @@
                 <span class="navbar-title">Et nous?</span>
             </a>
         </li>
+        {% if app.user %}
         <li class="navbar-item">
             <a href="{{ path('wish_create') }}" class="navbar-link">
                 <i class="fa-solid fa-lightbulb"></i>
@@ -29,7 +30,15 @@
             </a>
         </li>
         <li class="navbar-item">
-            <a href="{{ path('app_login') }}" class="navbar-link">
+             <a href="" class="navbar-link">
+                <i class="fa-solid fa-door-open"></i>
+                <span class="navbar-title">Deconnexion</span>
+             </a>
+        </li>
+            {% else %}
+            {# boucle if pour afficher l'un ou l'autre? #}
+        <li class="navbar-item">
+            <a href="{{ path('app_logout') }}" class="navbar-link">
                 <i class="fa-solid fa-plug"></i>
                 <span class="navbar-title">Connexion</span>
             </a>
@@ -40,5 +49,7 @@
                 <span class="navbar-title">Registration</span>
             </a>
         </li>
+
+        {% endif %}
     </ul>
 </nav>

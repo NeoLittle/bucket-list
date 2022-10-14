@@ -38,7 +38,7 @@ class WishController extends AbstractController
             throw $this->createNotFoundException('Error, Data not found');
         }
 
-        return $this->render('wish/details.html.twig');
+        return $this->render('wish/details.html.twig', ["wish"=>$wish]);
     }
 
     /**
